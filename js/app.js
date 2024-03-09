@@ -10,6 +10,14 @@ const BOSS_MOVE_CHANCE = 0.75;
 const BOSS_SHOOT_COOLDOWN = 2;
 const BOSS_THINK_TIME = 1000;
 
+const keys = {
+    ArrowLeft: false,
+    ArrowRight: false,
+    Space: false,
+    Shooting: false
+};
+
+
 // Screen Elements
 let startButtonElement;
 let gameplayScreenElement;
@@ -23,7 +31,7 @@ let initialAsteroidsAmount = 1;
 const initialBulletAmount = 10;
 let bulletAmount = initialBulletAmount;
 const bulletSpeed = 10;
-const playerMovementSpeed = 25;
+const playerMovementSpeed = 10;
 let bossHealthPoints = 4;
 const gameDuration = 60;
 let remainingSeconds = gameDuration;
@@ -97,20 +105,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('keydown', function (e) {
     if (!isInputActive) return;
-    switch (e.key) {
-        case LEFT_MOVEMENT_KEY:
-            movePlayer(true);
-            break;
-        case RIGHT_MOVEMENT_KEY:
-            movePlayer(false);
-            break;
-        case SHOOT_KEY:
-            createBullet(true);
-            break;
-        default:
-            console.log("Wrong key: " + e.key);
-            break;
+
+    keys[e.key] = true;
+
+    if (e.key === SHOOT_KEY) {
+        keys.Shooting = true;
+        createBullet(true);
     }
+});
+
+document.addEventListener('keyup', function (e) {
+    if (!isInputActive) return;
+
+    keys[e.key] = false;
+
+    if (e.key === SHOOT_KEY) {
+        keys.Shooting = false;
+    }
+
+    movePlayer();
 });
 
 // Timer
@@ -140,7 +153,11 @@ gameTicker.add(() => {
         isFirstLevel = false;
         runSecondLevel();
     }
+
+    movePlayer();
 });
+
+
 gameTicker.start();
 
 /**
@@ -479,18 +496,21 @@ function testForHit(object1, object2) {
  * @param {boolean} movingLeft - Indicates whether the player is moving left.
  */
 
-function movePlayer(movingLeft) {
-    let playerStartPos = playerSprite.x;
-    if (movingLeft) {
+function movePlayer() {
+    if (keys[LEFT_MOVEMENT_KEY]) {
         playerSprite.x -= playerMovementSpeed;
-        if (playerSprite.x < (playerSprite.width / 2)) {
-            playerSprite.x = playerStartPos;
+        if (playerSprite.x < playerSprite.width / 2) {
+            playerSprite.x = playerSprite.width / 2;
         }
-    } else {
+    } else if (keys[RIGHT_MOVEMENT_KEY]) {
         playerSprite.x += playerMovementSpeed;
-        if (playerSprite.x > (pixiApp.screen.width - playerSprite.width / 2)) {
-            playerSprite.x = playerStartPos;
+        if (playerSprite.x > pixiApp.screen.width - playerSprite.width / 2) {
+            playerSprite.x = pixiApp.screen.width - playerSprite.width / 2;
         }
+    }
+
+    if (keys.Shooting) {
+        createBullet(true);
     }
 }
 
