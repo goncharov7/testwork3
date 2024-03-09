@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestWork</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.x/dist/pixi.min.js"></script>
+</head>
+<body>
+    <canvas id='main__canvas'></canvas>
+    <div class="screen">
+        <div class="gameplay__screen hide" id="gameplay__screen">
+            <div class="bullets">
+                Bullets: <span class="actual__bullets__element">
+                    00
+                </span>
+                    /
+                <span class="start__bullets__element">
+                    10
+                </span>
+            </div>
+            <div class="timer" id="timer__element">00</div>
+        </div>
+        <button class="start__button" id="start__button__element">Start new game</button>
+    </div>
+
+    <script src="./js/app.js"></script>
+</body>
+</html>

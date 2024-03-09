@@ -1,0 +1,75 @@
+body {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.screen {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    top: 0;
+    left: 0;
+}
+
+.gameplay__screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    font-size: 30px;
+    color: #ff0000;
+}
+
+.gameplay__screen.hide {
+    display: none;
+}
+
+.bullets {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.timer {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.start__button.hide {
+    display: none;
+}
+
+.start__button {
+    display: block;
+    width: 250px;
+    height: 50px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 22px;
+    font-weight: 600;
+    color: #0051ff;
+    text-transform: uppercase;
+    background: none;
+    border-radius: 25px;
+    border-color: #0051ff;
+}
+
+.start__button:hover {
+    background-color: #5573b4;
+    color: #000;
+}
+
+.start__button:active {
+    background-color: #0034a3;
+}
