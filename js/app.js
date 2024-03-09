@@ -17,7 +17,7 @@ let startBulletsElement;
 let timerElement;
 
 // Game Settings
-let initialAsteroidsAmount = 10;
+let initialAsteroidsAmount = 1;
 const initialBulletAmount = 10;
 let bulletAmount = initialBulletAmount;
 const bulletSpeed = 10;
@@ -181,6 +181,8 @@ function endGame(playerWon) {
     isInputActive = false;
     isGameEnded = true;
     gameTicker.stop();
+
+    pixiApp.ticker.remove(updateHPBarPosition);
 }
 
 /**
@@ -524,6 +526,14 @@ function updateBossHP() {
     hpBarElement.endFill();
 }
 
+function updateHPBarPosition(delta) {
+    if (hpBarElement && bossSprite) {
+        // Обновляем позицию шкалы в соответствии с позицией босса
+        hpBarElement.position.x = bossSprite.x - hpBarElement.width / 2;
+        hpBarElement.position.y = bossSprite.y - bossSprite.height / 2 - 40; 
+    }
+}
+
 /**
  * Initiates the boss's behavior, including movement and shooting.
  */
@@ -565,6 +575,7 @@ function spawnBoss() {
     pixiApp.stage.addChild(bossTexture);
     bossSprite = bossTexture;
     showBossHP();
+    pixiApp.ticker.add(updateHPBarPosition);
     runBossBehavior();
 }
 
