@@ -27,7 +27,7 @@ let timerElement;
 
 // Game Settings
 let lastShootTime = 0;
-let initialAsteroidsAmount = 1;
+let initialAsteroidsAmount = 10;
 const initialBulletAmount = 10;
 let bulletAmount = initialBulletAmount;
 const bulletSpeed = 10;
