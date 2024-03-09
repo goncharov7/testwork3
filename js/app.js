@@ -2,6 +2,7 @@
 const LEFT_MOVEMENT_KEY = 'ArrowLeft';
 const RIGHT_MOVEMENT_KEY = 'ArrowRight';
 const SHOOT_KEY = ' ';
+const SHOOT_DELAY = 200;
 
 const BOSS_MOVEMENT_SPEED = 50;
 const BOSS_BULLET_SPEED = 5;
@@ -17,7 +18,8 @@ let startBulletsElement;
 let timerElement;
 
 // Game Settings
-let initialAsteroidsAmount = 10;
+let lastShootTime = 0;
+let initialAsteroidsAmount = 1;
 const initialBulletAmount = 10;
 let bulletAmount = initialBulletAmount;
 const bulletSpeed = 10;
@@ -65,7 +67,9 @@ for (let i = 0; i < initialAsteroidsAmount; i++) {
     asteroidSprite.height = 125;
     asteroidSprite.x = 100 + Math.random() * pixiApp.screen.width * .75;
     asteroidSprite.y = Math.random() * pixiApp.screen.height / 2;
-    asteroidSprite.rotation = Math.random();
+
+    asteroidSprite.rotation = Math.random() * 2;
+    
     asteroidsArray.push(asteroidSprite);
     pixiApp.stage.addChild(asteroidSprite);
 }
@@ -244,6 +248,13 @@ let bossBulletTickersArray = [];
  */
 
 function createBullet(playerCall) {
+
+    const currentTime = Date.now();
+    if (currentTime - lastShootTime < SHOOT_DELAY) {
+        return;
+    }
+
+    lastShootTime = currentTime;
     if (bulletAmount <= 0) {
         return;
     }
