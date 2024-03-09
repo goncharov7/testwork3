@@ -17,7 +17,7 @@ let startBulletsElement;
 let timerElement;
 
 // Game Settings
-let initialAsteroidsAmount = 1;
+let initialAsteroidsAmount = 10;
 const initialBulletAmount = 10;
 let bulletAmount = initialBulletAmount;
 const bulletSpeed = 10;
@@ -528,7 +528,6 @@ function updateBossHP() {
 
 function updateHPBarPosition(delta) {
     if (hpBarElement && bossSprite) {
-        // Обновляем позицию шкалы в соответствии с позицией босса
         hpBarElement.position.x = bossSprite.x - hpBarElement.width / 2;
         hpBarElement.position.y = bossSprite.y - bossSprite.height / 2 - 40; 
     }
